@@ -1,4 +1,4 @@
 flask
 pip
-sqlalchemy
-sqlalchemy.orm
+flask-mysql
+pymysql
