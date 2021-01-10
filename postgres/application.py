@@ -6,8 +6,8 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 app=Flask(__name__)
 conn_str = 'postgresql://{username}:{password}@localhost:5432/{database}'.format(
-            username='postgres',
-            password='19821983',
+            username='naresh',
+            password='Naresh#240',
             database='postgres'
          )
 
@@ -36,5 +36,5 @@ def index():
 
 
 if __name__ == '__main__':
-    #app.run(host='0.0.0.0',port=5000,debug=True)
+    app.run(host='0.0.0.0',port=5000,debug=True)
     app.run(debug=True)
