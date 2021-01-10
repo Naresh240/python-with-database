@@ -6,7 +6,7 @@
 # Install Python3,pip
     yum install python3-pip python3-devel -y
 # Postgres Database Setup
-    [Postgres SetUP](https://github.com/Naresh240/postgres-database-setup/blob/main/README.md)
+  [Postgres SetUP](https://github.com/Naresh240/postgres-database-setup/blob/main/README.md)
 # Install required modules using below command
     pip3 install -r requirements.txt
 # Run Application
