@@ -4,7 +4,7 @@ import pymysql
 
 app= Flask(__name__)
 
-mysql=pymysql.connect(db='flaskapp', user='root', passwd='root', host='localhost')
+mysql=pymysql.connect(db='mysql', user='naresh', passwd='Naresh#240', host='localhost')
 
 @app.route('/',methods=['GET','POST'])
 
@@ -26,5 +26,5 @@ def index():
 
 
 if __name__ == '__main__':
-    #app.run(host='0.0.0.0',port=5000,debug=True)
+    app.run(host='0.0.0.0',port=5000,debug=True)
     app.run(debug=True)
