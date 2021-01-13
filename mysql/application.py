@@ -1,10 +1,9 @@
 from flask import Flask, render_template,request
-from flaskext.mysql import MySQL
-import pymysql
+import mysql.connector
 
 app= Flask(__name__)
 
-mysql=pymysql.connect(db='mysql', user='naresh', passwd='Naresh#240', host='localhost')
+mysql=mysql.connector.connect(database='vamsitestdb', user='admin', password='admin123', host='mysqldb.c79sd2kyheg7.us-east-1.rds.amazonaws.com')
 
 @app.route('/',methods=['GET','POST'])
 
@@ -27,4 +26,3 @@ def index():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5000,debug=True)
-    app.run(debug=True)
