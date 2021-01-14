@@ -2,13 +2,13 @@
 
 # Pre-Requisites:
     Mysql Database Setup
-    Install python3, pip
+    Install python, pip
 # Mysql Database Setup
   [Mysql SetUp](https://github.com/Naresh240/Mysql-Database-Setup/blob/main/README.md)
 # Install required modules using below command
-    pip3 install -r requirements.txt
+    pip install -r requirements.txt
 # Run Application
-    python3 application.py
+    python application.py
 # Open Port number 5000 with security group and check output with in WebUI
   http://18.205.106.9:5000/
   
