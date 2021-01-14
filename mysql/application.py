@@ -5,21 +5,20 @@ app = Flask(__name__)
 
 mysqldb = mysql.connector.connect(host='localhost',user='root',passwd='Naresh#240',database='mysql')
 my_database=mysqldb.cursor()
-my_database.execute("CREATE TABLE IF NOT EXISTS employee(empno VARCHAR(20) PRIMARY KEY,empname VARCHAR(20),salary VARCHAR(20))")
-mysqldb.commit()
 
 @app.route('/insertemployee', methods=['POST', 'GET'])
 def insertemployee():
+    my_database.execute("CREATE TABLE IF NOT EXISTS employee(empno VARCHAR(20),empname VARCHAR(20),salary VARCHAR(20))")	
+    mysqldb.commit()
+
     if request.method == "POST":
         details = request.form
         empno = details['empno']
         empname = details['empname']
         salary = details['salary']
-        my_database=mysqldb.cursor()
         my_database.execute("INSERT INTO employee(empno, empname, salary) VALUES (%s, %s, %s)", (empno, empname, salary))
         mysqldb.commit()
-        my_database.close()
-        return 'successfully employee created'
+        return 'Employee successfullly created'
     return render_template('insertemployee.html')
 
 @app.route('/listofemployees', methods=['GET'])

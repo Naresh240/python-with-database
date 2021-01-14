@@ -1,40 +1,33 @@
-from flask import Flask, render_template,request
-from flask import jsonify
-from sqlalchemy import create_engine
-#from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import scoped_session, sessionmaker
+from flask import Flask, render_template, request
+import psycopg2
 
 app=Flask(__name__)
-conn_str = 'postgresql://{username}:{password}@localhost:5432/{database}'.format(
-            username='naresh',
-            password='Naresh#240',
-            database='postgres'
-         )
 
-engine=create_engine(conn_str)
-db=scoped_session(sessionmaker(bind=engine))
-#db=SQLAlchemy(app)
+postgresdb = psycopg2.connect(database="postgres", user="postgres", password="Naresh#240", host="localhost", port="5432")
+postgrescur = postgresdb.cursor()
 
+@app.route('/insertemployee', methods=['POST', 'GET'])
 
-@app.route('/',methods=['GET','POST'])
-
-def index():
-    #cur=db.cursor()
-    db.execute("CREATE TABLE IF NOT EXISTS Userdetail(firstname VARCHAR(20),lastname VARCHAR(20))")	
-    db.commit()
+def insertemployee():
+    postgrescur.execute("CREATE TABLE IF NOT EXISTS employee(empno VARCHAR(20),empname VARCHAR(20),salary VARCHAR(20))")	
+    postgresdb.commit()
  			
     if request.method == "POST":
         details = request.form
-        firstName = details['fname']
-        lastName = details['lname']
-        #cur1=db.cursor()
-        db.execute("INSERT INTO Userdetail(firstname, lastname) VALUES (:fname, :lname)",{"fname":firstName,"lname":lastName})
-        db.commit()
-        db.close()
-        return 'success'
-    return render_template('index.html')
+        empno = details['empno']
+        empname = details['empname']
+        salary  = details['salary']
+        postgrescur.execute("INSERT INTO employee(empno, empname, salary) VALUES (%s, %s, %s)", (empno, empname, salary))
+        postgresdb.commit()
+        return 'Employee successfullly created'
+    return render_template('insertemployee.html')
 
+@app.route('/listofemployees', methods=['GET'])
+def listofemployees():
+    if request.method == "GET":
+        postgrescur.execute("select * from employee")
+        result = postgrescur.fetchall()
+        return render_template('listofemployees.html', result=result)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5000,debug=True)
-    app.run(debug=True)
